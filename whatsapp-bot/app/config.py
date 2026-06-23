@@ -11,7 +11,7 @@ class Config:
 
     # Anthropic Claude Settings
     ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-    CLAUDE_MODEL = "claude-3-haiku-20240307"
+    CLAUDE_MODEL = "claude-sonnet-4-5-20250929"
 
     # Meta WhatsApp API Settings
     PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")

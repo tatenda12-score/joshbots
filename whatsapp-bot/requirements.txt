@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+httpx
+anthropic
+sqlalchemy
+python-dotenv
+reportlab
+python-multipart
+aiofiles
+psycopg2-binary

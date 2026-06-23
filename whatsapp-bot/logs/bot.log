@@ -1,0 +1,543 @@
+2026-05-12 10:51:11,151 - INFO - Intent detected for 1234567890: greeting
+2026-05-12 10:51:11,658 - INFO - Intent detected for 1234567890: browse_products
+2026-05-12 10:51:12,175 - INFO - Intent detected for 1234567890: check_price
+2026-05-12 10:51:12,680 - INFO - Intent detected for 1234567890: add_to_quote
+2026-05-12 10:51:13,214 - INFO - Intent detected for 1234567890: view_location
+2026-05-12 10:51:13,728 - INFO - Intent detected for 1234567890: talk_to_human
+2026-05-12 10:57:22,836 - INFO - Intent detected for 1234567890: greeting
+2026-05-12 10:57:23,340 - INFO - Intent detected for 1234567890: browse_products
+2026-05-12 10:57:23,843 - INFO - Intent detected for 1234567890: check_price
+2026-05-12 10:57:24,348 - INFO - Intent detected for 1234567890: add_to_quote
+2026-05-12 10:57:24,882 - INFO - Intent detected for 1234567890: view_location
+2026-05-12 10:57:25,387 - INFO - Intent detected for 1234567890: talk_to_human
+2026-06-01 13:56:21,264 - INFO - Webhook verified successfully
+2026-06-01 13:57:10,695 - INFO - Webhook verified successfully
+2026-06-01 14:03:48,750 - ERROR - Failed to parse AI response as JSON: ```json
+{
+    "intent": "greeting",
+    "category": null,
+    "product_name": null,
+    "quantity": null,
+    "confidence": 0.95
+}
+```
+2026-06-01 14:03:48,750 - INFO - Intent detected for 263786497967: unknown
+2026-06-01 14:15:46,012 - INFO - Intent detected for 1234567890: greeting
+2026-06-01 14:15:46,541 - INFO - Intent detected for 1234567890: browse_products
+2026-06-01 14:15:47,064 - INFO - Intent detected for 1234567890: check_price
+2026-06-01 14:15:47,585 - INFO - Intent detected for 1234567890: add_to_quote
+2026-06-01 14:15:48,140 - INFO - Intent detected for 1234567890: view_location
+2026-06-01 14:15:48,664 - INFO - Intent detected for 1234567890: talk_to_human
+2026-06-01 15:05:54,932 - INFO - Webhook verified successfully
+2026-06-01 15:09:25,241 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 15:11:23,760 - INFO - Intent detected for 263786497967: browse_products
+2026-06-01 15:13:15,686 - INFO - Intent detected for 263786497967: browse_categories
+2026-06-01 15:17:30,280 - INFO - Intent detected for 263786497967: check_price
+2026-06-01 15:18:49,083 - INFO - Intent detected for 263786497967: browse_products
+2026-06-01 15:19:56,660 - INFO - Intent detected for 263786497967: talk_to_human
+2026-06-01 15:22:19,186 - INFO - Bypassing bot for 263786497967 (Human Mode active)
+2026-06-01 15:22:42,300 - INFO - Bypassing bot for 263786497967 (Human Mode active)
+2026-06-01 15:22:56,222 - INFO - Bypassing bot for 263786497967 (Human Mode active)
+2026-06-01 15:29:58,325 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 15:30:23,660 - INFO - Intent detected for 263786497967: talk_to_human
+2026-06-01 15:30:27,998 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-01 15:30:58,994 - INFO - Intent detected for 263786497967: request_quote
+2026-06-01 15:40:24,094 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 15:41:58,558 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 15:58:53,217 - INFO - Intent detected for 263786497967: request_quote
+2026-06-01 15:59:54,160 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-01 15:59:54,337 - ERROR - Error building quotation from list: Invalid format specifier ' "esp32", "quantity": 5' for object of type 'str'
+2026-06-01 16:03:22,171 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-01 16:03:26,121 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"A0tcf6I8RgLOYgbeLNpMaz3"}}
+2026-06-01 16:04:07,179 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 16:04:08,293 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"AUsOmc6QDEaZWpDPLaiSX-Y"}}
+2026-06-01 16:05:53,031 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 16:05:54,285 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"AnmTxKJY0SG889mcIkE8ifC"}}
+2026-06-01 16:13:38,771 - INFO - Intent detected for 263786497967: greeting
+2026-06-01 16:13:41,187 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"A7E0UBJeeePMACIUjLWcUFn"}}
+2026-06-08 12:47:51,178 - INFO - Webhook verified successfully
+2026-06-08 12:51:33,505 - INFO - Webhook verified successfully
+2026-06-08 12:54:33,042 - INFO - Session expired for 263786497967. Resetting.
+2026-06-08 12:54:38,729 - INFO - Claude action: greeting | message length: 162
+2026-06-08 12:54:38,729 - INFO - Action for 263786497967: greeting
+2026-06-08 12:55:18,070 - INFO - Claude action: check_price | message length: 163
+2026-06-08 12:55:18,070 - INFO - Action for 263786497967: check_price
+2026-06-08 12:56:02,828 - INFO - Claude action: check_price | message length: 179
+2026-06-08 12:56:02,828 - INFO - Action for 263786497967: check_price
+2026-06-08 12:56:55,202 - INFO - Claude action: check_price | message length: 214
+2026-06-08 12:56:55,202 - INFO - Action for 263786497967: check_price
+2026-06-08 12:57:46,444 - INFO - Claude action: request_quote | message length: 393
+2026-06-08 12:57:46,445 - INFO - Action for 263786497967: request_quote
+2026-06-08 12:59:20,677 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-08 13:00:01,068 - INFO - Claude action: view_location | message length: 385
+2026-06-08 13:00:01,068 - INFO - Action for 263786497967: view_location
+2026-06-08 13:15:10,058 - INFO - Webhook verified successfully
+2026-06-08 13:16:24,193 - INFO - Claude action: greeting | message length: 166
+2026-06-08 13:16:24,193 - INFO - Action for 263786497967: greeting
+2026-06-08 13:17:16,792 - INFO - Claude action: check_price | message length: 192
+2026-06-08 13:17:16,792 - INFO - Action for 263786497967: check_price
+2026-06-08 13:18:01,163 - INFO - Claude action: view_location | message length: 403
+2026-06-08 13:18:01,163 - INFO - Action for 263786497967: view_location
+2026-06-08 13:18:38,722 - INFO - Claude action: talk_to_human | message length: 304
+2026-06-08 13:18:38,722 - INFO - Action for 263786497967: talk_to_human
+2026-06-08 13:18:42,830 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-08 13:19:16,838 - INFO - Claude action: check_price | message length: 422
+2026-06-08 13:19:16,839 - INFO - Action for 263786497967: check_price
+2026-06-08 13:26:02,173 - INFO - Webhook verified successfully
+2026-06-08 13:40:08,772 - INFO - Claude action: greeting | message length: 265
+2026-06-08 13:40:08,772 - INFO - Action for 263786497967: greeting
+2026-06-08 13:53:13,175 - INFO - Webhook verified successfully
+2026-06-08 13:55:17,986 - INFO - Claude action: greeting | message length: 265
+2026-06-08 13:55:17,986 - INFO - Action for 263786497967: greeting
+2026-06-08 13:55:52,284 - INFO - Claude action: check_price | message length: 386
+2026-06-08 13:55:52,284 - INFO - Action for 263786497967: check_price
+2026-06-08 13:56:43,074 - INFO - Claude action: request_quote | message length: 408
+2026-06-08 13:56:43,074 - INFO - Action for 263786497967: request_quote
+2026-06-08 13:59:42,334 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-09 18:15:32,721 - INFO - Webhook verified successfully
+2026-06-09 18:16:27,236 - INFO - Session expired for 263786497967. Resetting.
+2026-06-09 18:16:28,344 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"AIwzNGxTL2_CmLKb3_v6Yqo"}}
+2026-06-09 18:16:32,415 - INFO - Claude action: greeting | message length: 40
+2026-06-09 18:16:32,416 - INFO - Action for 263786497967: greeting
+2026-06-09 18:16:33,567 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"AdSaZAQOzJPcPF6OD7JwHBL"}}
+2026-06-09 18:17:13,850 - INFO - Claude action: greeting | message length: 40
+2026-06-09 18:17:13,850 - INFO - Action for 263786497967: greeting
+2026-06-09 18:17:14,849 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"ANhCGaPBdMBRl5tNY6Mq6lY"}}
+2026-06-09 18:17:25,751 - INFO - Claude action: check_price | message length: 49
+2026-06-09 18:17:25,751 - INFO - Action for 263786497967: check_price
+2026-06-09 18:17:26,885 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"Ag-oOeBxL1yfgzV4IvqjDX6"}}
+2026-06-10 09:52:57,270 - INFO - Webhook verified successfully
+2026-06-10 09:53:44,508 - INFO - Session expired for 263786497967. Resetting.
+2026-06-10 09:53:48,198 - INFO - Claude action: greeting | message length: 40
+2026-06-10 09:53:48,199 - INFO - Action for 263786497967: greeting
+2026-06-10 09:54:15,817 - INFO - Claude action: check_price | message length: 87
+2026-06-10 09:54:15,817 - INFO - Action for 263786497967: check_price
+2026-06-10 09:55:38,766 - INFO - Claude action: request_quote | message length: 146
+2026-06-10 09:55:38,766 - INFO - Action for 263786497967: request_quote
+2026-06-10 10:06:43,910 - INFO - Webhook verified successfully
+2026-06-10 10:07:47,039 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-10 10:08:07,701 - INFO - Claude action: greeting | message length: 40
+2026-06-10 10:08:07,701 - INFO - Action for 263786497967: greeting
+2026-06-10 10:10:48,328 - INFO - Claude action: check_price | message length: 70
+2026-06-10 10:10:48,329 - INFO - Action for 263786497967: check_price
+2026-06-10 10:11:14,044 - INFO - Claude action: request_quote | message length: 94
+2026-06-10 10:11:14,044 - INFO - Action for 263786497967: request_quote
+2026-06-10 10:11:41,632 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-10 10:13:08,684 - INFO - Claude action: chat | message length: 112
+2026-06-10 10:13:08,684 - INFO - Action for 263786497967: chat
+2026-06-10 10:13:42,442 - INFO - Claude action: talk_to_human | message length: 128
+2026-06-10 10:13:42,443 - INFO - Action for 263786497967: talk_to_human
+2026-06-10 10:13:45,237 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-10 10:14:24,133 - INFO - Claude action: check_price | message length: 30
+2026-06-10 10:14:24,133 - INFO - Action for 263786497967: check_price
+2026-06-10 10:14:54,113 - INFO - Claude action: view_location | message length: 153
+2026-06-10 10:14:54,113 - INFO - Action for 263786497967: view_location
+2026-06-10 10:16:01,241 - INFO - Claude action: greeting | message length: 40
+2026-06-10 10:16:01,241 - INFO - Action for 263786497967: greeting
+2026-06-10 10:16:16,966 - INFO - Claude action: request_quote | message length: 49
+2026-06-10 10:16:16,966 - INFO - Action for 263786497967: request_quote
+2026-06-10 10:16:50,257 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-11 09:08:38,786 - INFO - Webhook verified successfully
+2026-06-11 09:09:44,413 - INFO - Session expired for 263786497967. Resetting.
+2026-06-11 09:09:49,095 - INFO - Claude action: greeting | message length: 40
+2026-06-11 09:09:49,095 - INFO - Action for 263786497967: greeting
+2026-06-11 09:10:58,549 - INFO - Claude action: check_price | message length: 123
+2026-06-11 09:10:58,549 - INFO - Action for 263786497967: check_price
+2026-06-11 09:11:35,675 - INFO - Claude action: request_quote | message length: 106
+2026-06-11 09:11:35,675 - INFO - Action for 263786497967: request_quote
+2026-06-11 09:12:29,240 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-11 09:12:56,380 - INFO - Claude action: view_location | message length: 187
+2026-06-11 09:12:56,380 - INFO - Action for 263786497967: view_location
+2026-06-11 09:13:32,637 - INFO - Claude action: talk_to_human | message length: 65
+2026-06-11 09:13:32,637 - INFO - Action for 263786497967: talk_to_human
+2026-06-11 09:13:36,025 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-11 09:27:39,038 - INFO - Webhook verified successfully
+2026-06-11 09:29:16,906 - INFO - Claude action: greeting | message length: 40
+2026-06-11 09:29:16,906 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-11 09:29:55,080 - INFO - Claude action: check_price | message length: 125
+2026-06-11 09:29:55,081 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 09:30:30,550 - INFO - Claude action: request_quote | message length: 173
+2026-06-11 09:30:30,550 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-11 09:31:35,885 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-11 09:32:27,008 - INFO - Claude action: view_location | message length: 209
+2026-06-11 09:32:27,008 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-11 09:32:58,978 - INFO - Claude action: out_of_scope | message length: 109
+2026-06-11 09:32:58,978 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-11 09:33:23,296 - INFO - Claude action: talk_to_human | message length: 153
+2026-06-11 09:33:23,296 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-11 09:33:27,635 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-11 09:34:52,062 - INFO - Claude action: out_of_scope | message length: 98
+2026-06-11 09:34:52,063 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-11 09:58:33,274 - INFO - Webhook verified successfully
+2026-06-11 10:03:04,308 - INFO - Webhook verified successfully
+2026-06-11 10:04:07,014 - INFO - Claude action: greeting | message length: 76
+2026-06-11 10:04:07,014 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-11 10:04:39,654 - INFO - Claude action: check_price | message length: 20
+2026-06-11 10:04:39,655 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 10:04:54,408 - INFO - Claude action: request_quote | message length: 108
+2026-06-11 10:04:54,408 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-11 10:05:25,719 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-11 10:05:47,860 - INFO - Claude action: greeting | message length: 76
+2026-06-11 10:05:47,860 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-11 10:06:34,586 - INFO - Claude action: browse_products | message length: 111
+2026-06-11 10:06:34,587 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-11 10:07:19,422 - INFO - Claude action: view_location | message length: 345
+2026-06-11 10:07:19,423 - INFO - Action for 263786497967: view_location | secondary: check_price
+2026-06-11 10:07:43,534 - ERROR - Could not extract JSON from Claude response: We have the following product categories:
+
+• *Capacitors*
+• *Transistors*
+• *ICs*
+• *Sensors*
+• *Connectors*
+• *Resistors*
+
+Which category interests you?
+2026-06-11 10:07:43,534 - INFO - Action for 263786497967: chat | secondary: None
+2026-06-11 10:08:34,250 - INFO - Claude action: check_price | message length: 49
+2026-06-11 10:08:34,250 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 10:09:12,803 - INFO - Claude action: greeting | message length: 76
+2026-06-11 10:09:12,803 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-11 10:09:30,872 - INFO - Claude action: talk_to_human | message length: 140
+2026-06-11 10:09:30,873 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-11 10:09:34,656 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-11 10:10:45,702 - INFO - Claude action: greeting | message length: 76
+2026-06-11 10:10:45,703 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-11 10:11:01,979 - INFO - Claude action: out_of_scope | message length: 84
+2026-06-11 10:11:01,979 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-11 10:11:35,439 - INFO - Claude action: check_price | message length: 37
+2026-06-11 10:11:35,439 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 10:12:12,038 - INFO - Claude action: out_of_scope | message length: 37
+2026-06-11 10:12:12,039 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-11 10:12:35,673 - INFO - Claude action: check_price | message length: 48
+2026-06-11 10:12:35,673 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 10:13:05,301 - INFO - Claude action: check_price | message length: 55
+2026-06-11 10:13:05,301 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 10:13:52,969 - INFO - Claude action: request_quote | message length: 134
+2026-06-11 10:13:52,969 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-11 10:14:00,610 - ERROR - Unexpected error sending WhatsApp message: 
+2026-06-11 10:14:02,641 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-11 10:14:05,958 - ERROR - Unexpected error sending WhatsApp message: 
+2026-06-11 10:15:20,775 - INFO - Claude action: view_location | message length: 209
+2026-06-11 10:15:20,776 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-11 10:15:33,089 - INFO - Claude action: view_location | message length: 210
+2026-06-11 10:15:33,089 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-11 10:16:37,497 - INFO - Claude action: check_price | message length: 28
+2026-06-11 10:16:37,497 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-11 11:42:34,948 - INFO - Intercepted media/non-text message of type: image from 263777777777
+2026-06-11 11:42:34,951 - INFO - Intercepted media/non-text message of type: location from 263777777777
+2026-06-11 11:57:52,453 - INFO - Intercepted media/non-text message of type: image from 263777777777
+2026-06-11 12:01:14,830 - INFO - Claude action: gibberish | message length: 105
+2026-06-11 12:01:14,830 - INFO - Action for 1234567890: gibberish | secondary: None
+2026-06-11 12:01:17,186 - INFO - Claude action: out_of_scope | message length: 138
+2026-06-11 12:01:17,187 - INFO - Action for 1234567890: out_of_scope | secondary: None
+2026-06-11 12:01:20,710 - INFO - Claude action: out_of_scope | message length: 102
+2026-06-11 12:01:20,710 - INFO - Action for 1234567890: out_of_scope | secondary: None
+2026-06-11 12:01:23,611 - INFO - Claude action: browse_products | message length: 81
+2026-06-11 12:01:23,611 - INFO - Action for 1234567890: browse_products | secondary: None
+2026-06-12 09:14:08,276 - INFO - Webhook verified successfully
+2026-06-12 09:15:00,392 - INFO - Session expired for 263786497967. Resetting.
+2026-06-12 09:15:04,999 - INFO - Claude action: greeting | message length: 76
+2026-06-12 09:15:04,999 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-12 09:16:13,978 - INFO - Claude action: greeting | message length: 76
+2026-06-12 09:16:13,978 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-12 09:17:08,609 - INFO - Claude action: gibberish | message length: 67
+2026-06-12 09:17:08,609 - INFO - Action for 263786497967: gibberish | secondary: None
+2026-06-12 09:17:57,212 - INFO - Claude action: view_location | message length: 272
+2026-06-12 09:17:57,212 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-12 09:20:07,413 - INFO - Intercepted media/non-text message of type: sticker from 263786497967
+2026-06-12 09:46:42,995 - WARNING - Webhook verification failed
+2026-06-12 09:47:12,480 - INFO - Webhook verified successfully
+2026-06-12 09:48:20,276 - INFO - Claude action: greeting | message length: 76
+2026-06-12 09:48:20,276 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-12 09:48:30,149 - INFO - Claude action: browse_products | message length: 142
+2026-06-12 09:48:30,150 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-12 09:48:54,230 - INFO - Claude action: request_quote | message length: 103
+2026-06-12 09:48:54,231 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-12 09:49:07,050 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-12 09:49:41,451 - INFO - Claude action: talk_to_human | message length: 72
+2026-06-12 09:49:41,451 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-12 09:49:45,282 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-12 09:50:14,062 - INFO - Claude action: view_location | message length: 236
+2026-06-12 09:50:14,062 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-12 09:51:05,253 - INFO - Claude action: check_price | message length: 130
+2026-06-12 09:51:05,253 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-12 09:51:36,814 - INFO - Claude action: request_quote | message length: 108
+2026-06-12 09:51:36,814 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-12 09:52:09,572 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-12 09:54:43,159 - INFO - Claude action: out_of_scope | message length: 148
+2026-06-12 09:54:43,159 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-12 09:55:20,991 - INFO - Claude action: browse_products | message length: 142
+2026-06-12 09:55:20,992 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-12 09:55:42,981 - INFO - Claude action: talk_to_human | message length: 91
+2026-06-12 09:55:42,981 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-12 09:55:46,974 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-12 09:56:49,192 - INFO - Claude action: check_price | message length: 250
+2026-06-12 09:56:49,193 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-12 09:58:04,143 - INFO - Claude action: request_quote | message length: 232
+2026-06-12 09:58:04,143 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-12 09:59:04,288 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-12 10:13:37,386 - INFO - Webhook verified successfully
+2026-06-12 10:14:46,024 - INFO - Claude action: greeting | message length: 35
+2026-06-12 10:14:46,024 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-12 10:17:28,928 - INFO - Claude action: request_quote | message length: 356
+2026-06-12 10:17:28,928 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-12 10:19:06,111 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-16 16:24:18,812 - INFO - Webhook verified successfully
+2026-06-16 16:36:18,632 - INFO - Session expired for 263786497967. Resetting.
+2026-06-16 16:36:26,478 - INFO - Claude action: greeting | message length: 19
+2026-06-16 16:36:26,478 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-16 16:36:38,798 - INFO - Claude action: browse_products | message length: 74
+2026-06-16 16:36:38,798 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-16 16:36:57,887 - INFO - Claude action: request_quote | message length: 52
+2026-06-16 16:36:57,888 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-16 16:37:18,103 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-16 16:37:49,702 - INFO - Claude action: greeting | message length: 46
+2026-06-16 16:37:49,702 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-16 16:38:04,502 - INFO - Claude action: talk_to_human | message length: 47
+2026-06-16 16:38:04,503 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-16 16:38:07,611 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-17 16:35:33,075 - INFO - Webhook verified successfully
+2026-06-17 16:36:13,665 - INFO - Session expired for 263786497967. Resetting.
+2026-06-17 16:36:18,150 - INFO - Claude action: greeting | message length: 19
+2026-06-17 16:36:18,151 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-17 16:54:10,200 - WARNING - Webhook verification failed
+2026-06-17 16:56:54,627 - INFO - Webhook verified successfully
+2026-06-17 16:58:01,172 - INFO - Claude action: greeting | message length: 19
+2026-06-17 16:58:01,172 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-17 16:58:01,445 - WARNING - WhatsApp send attempt 1/3 failed (network): 
+2026-06-17 16:58:03,710 - WARNING - WhatsApp send attempt 2/3 failed (network): 
+2026-06-17 16:58:07,936 - WARNING - WhatsApp send attempt 3/3 failed (network): 
+2026-06-17 16:58:07,937 - ERROR - WhatsApp send FAILED after 3 attempts. Last error: 
+2026-06-17 16:58:35,649 - INFO - Claude action: greeting | message length: 19
+2026-06-17 16:58:35,649 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-17 16:58:37,211 - WARNING - WhatsApp send attempt 1/3 failed (network): 
+2026-06-17 16:58:39,592 - WARNING - WhatsApp send attempt 2/3 failed (network): 
+2026-06-17 16:58:44,000 - WARNING - WhatsApp send attempt 3/3 failed (network): 
+2026-06-17 16:58:44,000 - ERROR - WhatsApp send FAILED after 3 attempts. Last error: 
+2026-06-17 17:03:16,729 - WARNING - Webhook verification failed
+2026-06-17 17:06:49,339 - INFO - Webhook verified successfully
+2026-06-17 17:07:42,056 - INFO - Claude action: greeting | message length: 19
+2026-06-17 17:07:42,057 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-17 17:07:42,462 - WARNING - WhatsApp send attempt 1/3 failed (network): 
+2026-06-17 17:07:44,781 - WARNING - WhatsApp send attempt 2/3 failed (network): 
+2026-06-17 17:07:49,172 - WARNING - WhatsApp send attempt 3/3 failed (network): 
+2026-06-17 17:07:49,172 - ERROR - WhatsApp send FAILED after 3 attempts. Last error: 
+2026-06-18 08:22:51,471 - INFO - Webhook verified successfully
+2026-06-18 08:23:56,956 - INFO - Webhook verified successfully
+2026-06-18 08:24:45,439 - INFO - Session expired for 263786497967. Resetting.
+2026-06-18 08:24:47,137 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:24:50,441 - INFO - Claude action: greeting | message length: 19
+2026-06-18 08:24:50,441 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 08:24:52,166 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:25:02,522 - INFO - Claude action: browse_products | message length: 74
+2026-06-18 08:25:02,522 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-18 08:25:04,133 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:25:47,462 - INFO - Claude action: request_quote | message length: 52
+2026-06-18 08:25:47,462 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 08:25:49,700 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:25:51,390 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:26:50,992 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 08:26:56,348 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:27:18,948 - INFO - Claude action: talk_to_human | message length: 64
+2026-06-18 08:27:18,949 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-18 08:27:20,542 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:27:21,992 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:27:21,992 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-18 08:27:55,335 - INFO - Claude action: view_location | message length: 133
+2026-06-18 08:27:55,336 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-18 08:27:57,000 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:28:26,981 - INFO - Claude action: out_of_scope | message length: 98
+2026-06-18 08:28:26,981 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-18 08:28:28,537 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:28:58,772 - ERROR - Could not extract JSON from Claude response: I only handle product prices, stock, quotations, and location info. For other services, please contact us at 0786497967.
+2026-06-18 08:28:58,772 - INFO - Action for 263786497967: chat | secondary: None
+2026-06-18 08:29:00,295 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:29:40,763 - INFO - Claude action: check_price | message length: 83
+2026-06-18 08:29:40,763 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-18 08:29:42,819 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:30:12,819 - INFO - Claude action: request_quote | message length: 27
+2026-06-18 08:30:12,819 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 08:30:15,761 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:30:17,732 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:30:26,606 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 08:30:31,751 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:31:12,336 - INFO - Claude action: request_quote | message length: 36
+2026-06-18 08:31:12,336 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 08:31:14,654 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:31:17,310 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:31:23,561 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 08:31:30,717 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:32:02,121 - INFO - Claude action: request_quote | message length: 129
+2026-06-18 08:32:02,122 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 08:32:04,555 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:32:06,579 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:33:10,288 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 08:33:16,276 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:33:56,693 - INFO - Claude action: out_of_scope | message length: 42
+2026-06-18 08:33:56,694 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-18 08:33:59,975 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:34:19,428 - ERROR - Could not extract JSON from Claude response: LEDs (SKU: bt-401) are $0.10 each. How many do you need?
+2026-06-18 08:34:19,428 - INFO - Action for 263786497967: chat | secondary: None
+2026-06-18 08:34:22,613 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:34:29,935 - INFO - Claude action: greeting | message length: 19
+2026-06-18 08:34:29,935 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 08:34:32,077 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:34:41,737 - INFO - Claude action: talk_to_human | message length: 69
+2026-06-18 08:34:41,737 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-18 08:34:43,923 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:34:45,950 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:34:45,950 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-18 08:35:13,755 - ERROR - Error calling Anthropic API: Connection error.
+2026-06-18 08:35:13,756 - INFO - Action for 263786497967: chat | secondary: None
+2026-06-18 08:35:22,264 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:35:37,151 - INFO - Claude action: check_price | message length: 54
+2026-06-18 08:35:37,152 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-18 08:35:38,832 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:35:58,794 - INFO - Claude action: request_quote | message length: 130
+2026-06-18 08:35:58,794 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 08:36:00,437 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:36:01,900 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:36:31,979 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 08:36:35,888 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:37:10,766 - INFO - Claude action: greeting | message length: 19
+2026-06-18 08:37:10,766 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 08:37:12,247 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:37:56,046 - INFO - Claude action: talk_to_human | message length: 69
+2026-06-18 08:37:56,046 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-18 08:37:57,486 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:37:58,812 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 08:37:58,812 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-18 11:37:07,058 - INFO - Webhook verified successfully
+2026-06-18 11:38:21,971 - INFO - Session expired for 263786497967. Resetting.
+2026-06-18 11:38:22,969 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"A-IZGVa4ogVy9P4zY05x9hk"}}
+2026-06-18 11:38:28,921 - INFO - Claude action: greeting | message length: 19
+2026-06-18 11:38:28,921 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 11:38:30,003 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"A_dLRvXIcqdTQlObSV6_QOo"}}
+2026-06-18 11:39:08,215 - INFO - Claude action: greeting | message length: 19
+2026-06-18 11:39:08,215 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 11:39:09,324 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"ApPdCRW27P4RRVEb_Jyxknl"}}
+2026-06-18 11:49:09,621 - INFO - Webhook verified successfully
+2026-06-18 11:50:09,497 - INFO - Claude action: greeting | message length: 38
+2026-06-18 11:50:09,498 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 11:50:11,681 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:50:17,604 - INFO - Claude action: greeting | message length: 19
+2026-06-18 11:50:17,604 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 11:50:22,223 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:50:49,913 - INFO - Claude action: browse_products | message length: 74
+2026-06-18 11:50:49,913 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-18 11:50:52,802 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:51:14,172 - INFO - Claude action: request_quote | message length: 45
+2026-06-18 11:51:14,172 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 11:51:15,533 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:51:16,856 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:51:39,428 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 11:51:47,534 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:51:47,541 - INFO - Quotation sent to 263786497967. State set to awaiting_confirmation.
+2026-06-18 11:52:25,659 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:52:47,112 - INFO - Order confirmed by 263786497967.
+2026-06-18 11:52:48,643 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:53:35,063 - INFO - Claude action: view_location | message length: 109
+2026-06-18 11:53:35,063 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-18 11:53:36,457 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:54:18,552 - INFO - Claude action: view_location | message length: 128
+2026-06-18 11:54:18,553 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-18 11:54:19,907 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:55:01,603 - ERROR - Could not extract JSON from Claude response: Sure! Which products do you need a quote for?
+2026-06-18 11:55:01,604 - INFO - Action for 263786497967: chat | secondary: None
+2026-06-18 11:55:03,061 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:55:04,714 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:56:01,403 - INFO - Claude action: request_quote | message length: 49
+2026-06-18 11:56:01,403 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 11:56:02,832 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:56:04,162 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:56:19,208 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 11:56:25,904 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:56:25,910 - INFO - Quotation sent to 263786497967. State set to awaiting_confirmation.
+2026-06-18 11:57:09,630 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:57:34,837 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:57:46,011 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:57:53,954 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:58:53,475 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 11:59:32,117 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 12:00:12,863 - INFO - Order confirmed by 263786497967.
+2026-06-18 12:00:14,834 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 12:48:48,455 - INFO - Webhook verified successfully
+2026-06-18 12:57:47,976 - INFO - Webhook verified successfully
+2026-06-18 12:58:59,575 - INFO - Webhook verified successfully
+2026-06-18 13:02:22,653 - INFO - Claude action: greeting | message length: 19
+2026-06-18 13:02:22,653 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 13:02:24,157 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"AKoHUFWU4aSKwisqukLPO9T"}}
+2026-06-18 13:02:59,439 - INFO - Claude action: greeting | message length: 19
+2026-06-18 13:02:59,439 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 13:03:01,095 - ERROR - WhatsApp API Error (401): {"error":{"message":"Authentication Error","code":190,"type":"OAuthException","fbtrace_id":"ARfzpKGj0n8TTVLqaLkYeq1"}}
+2026-06-18 13:08:38,603 - INFO - Webhook verified successfully
+2026-06-18 13:09:29,385 - INFO - Claude action: greeting | message length: 19
+2026-06-18 13:09:29,386 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 13:09:31,835 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:09:43,189 - INFO - Claude action: browse_products | message length: 74
+2026-06-18 13:09:43,189 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-18 13:09:45,965 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:09:54,981 - INFO - Claude action: request_quote | message length: 48
+2026-06-18 13:09:54,982 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 13:09:57,434 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:09:59,429 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:10:09,433 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 13:10:14,811 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:10:14,820 - INFO - Quotation sent to 263786497967. State set to awaiting_confirmation.
+2026-06-18 13:10:40,859 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:11:16,277 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:11:32,849 - INFO - Quotation cleared/cancelled by 263786497967 (trigger: 'cancel'). Human mode explicitly cleared.
+2026-06-18 13:11:37,035 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:12:02,159 - INFO - Claude action: talk_to_human | message length: 68
+2026-06-18 13:12:02,160 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-18 13:12:05,025 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:12:07,344 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:12:10,354 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:12:10,355 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-18 13:12:43,034 - INFO - Claude action: view_location | message length: 154
+2026-06-18 13:12:43,035 - INFO - Action for 263786497967: view_location | secondary: None
+2026-06-18 13:12:46,682 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:13:18,758 - INFO - Claude action: request_quote | message length: 48
+2026-06-18 13:13:18,758 - INFO - Action for 263786497967: request_quote | secondary: None
+2026-06-18 13:13:21,415 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:13:24,180 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:13:40,362 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 13:13:40,362 - INFO - No quantity detected in message 'Keypad' from 263786497967. Prompting for quantity.
+2026-06-18 13:13:42,713 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:13:51,465 - INFO - Awaiting quote list from 263786497967, processing their product list
+2026-06-18 13:13:51,467 - INFO - Bare number '10' resolved to '10 What products do you need a quotation for' using conversation history.
+2026-06-18 13:13:57,878 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:14:19,975 - INFO - Claude action: greeting | message length: 19
+2026-06-18 13:14:19,975 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 13:14:54,136 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:15:03,816 - INFO - Claude action: greeting | message length: 19
+2026-06-18 13:15:03,816 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 13:15:06,282 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:15:15,702 - INFO - Claude action: out_of_scope | message length: 110
+2026-06-18 13:15:15,702 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-18 13:15:18,153 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:15:21,867 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:15:46,214 - INFO - Claude action: browse_products | message length: 161
+2026-06-18 13:15:46,214 - INFO - Action for 263786497967: browse_products | secondary: None
+2026-06-18 13:15:48,275 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:16:46,014 - INFO - Claude action: talk_to_human | message length: 167
+2026-06-18 13:16:46,014 - INFO - Action for 263786497967: talk_to_human | secondary: None
+2026-06-18 13:16:47,350 - INFO - Claude action: greeting | message length: 19
+2026-06-18 13:16:47,350 - INFO - Action for 263786497967: greeting | secondary: None
+2026-06-18 13:16:48,686 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:16:49,779 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:16:52,940 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:16:57,350 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:16:57,351 - INFO - Handoff notification sent for 263786497967 - bot remains active
+2026-06-18 13:18:58,602 - INFO - Claude action: out_of_scope | message length: 107
+2026-06-18 13:18:58,603 - INFO - Action for 263786497967: out_of_scope | secondary: None
+2026-06-18 13:19:00,672 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:19:02,925 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:20:33,146 - ERROR - Error calling Anthropic API: Connection error.
+2026-06-18 13:20:33,146 - INFO - Action for 263786497967: chat | secondary: None
+2026-06-18 13:20:53,989 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:20:55,697 - INFO - WhatsApp message sent successfully (attempt 1)
+2026-06-18 13:21:19,989 - INFO - Claude action: check_price | message length: 105
+2026-06-18 13:21:19,990 - INFO - Action for 263786497967: check_price | secondary: None
+2026-06-18 13:21:22,022 - INFO - WhatsApp message sent successfully (attempt 1)

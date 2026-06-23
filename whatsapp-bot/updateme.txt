@@ -1,0 +1,33 @@
+# WhatsApp Chatbot Project Update & StatusTracker
+
+## Current Status (As of June 2026)
+We are building a robust, Claude-AI-powered WhatsApp Chatbot for "BlitzTech Electronics". 
+The bot manages product inquiries, quotation requests, and human handoffs natively via WhatsApp, maintaining conversation context via a single injected SQLite database session to prevent locks and concurrency issues.
+
+## Recent Work Completed
+### 1. Robust Quotation Parsing Logic
+- **Removed brittle history regex:** We deleted the unreliable `_extract_product_from_history` regex-based function.
+- **Implemented Explicit State Tracking (`pending_product`):**
+  - If a user sends a product name without a quantity, we save it as `pending_product` in `user_session.context_data` and explicitly ask "How many units of that would you like?".
+  - When the user replies with a number, we merge it with the `pending_product` to create a complete query for the AI parser (e.g., "5 esp32").
+  - **CRITICAL:** We immediately consume and remove `pending_product` from `context_data` after resolving, to prevent stale state from affecting future requests.
+
+### 2. Quotation State & Confirmation Handling
+- **State flow:** `awaiting_quote` -> AI parsing & stock check -> Quote generation -> `awaiting_confirmation`.
+- **Cancellation & Corrections:**
+  - When in `awaiting_confirmation`, the bot listens for confirmation ("proceed", "yes") OR cancellation/correction ("cancel", "no", "edit", "wrong", "restart").
+  - **CRITICAL:** Upon confirmation or cancellation, we reset the state (`awaiting_confirmation` = False, `cart` = []) AND explicitly force `is_human_mode = False`. This ensures the bot never gets stuck silently ignoring the user if they abort a quote.
+
+### 3. Database Architecture & Safety
+- **Single DB Session Injection:** We strictly pass a single `db` session down from `webhook.py` through `bot_handler.py` to `quotation_service.py` and others. We do NOT instantiate local `SessionLocal()` objects within these services, avoiding SQLite database lock contention.
+- **Context Persistence:** We use `flag_modified(user_session, "context_data")` before calling `db.commit()` to guarantee that nested dictionary changes (like modifying the history, cart, or pending states) are properly saved to the database.
+
+## Principles to Avoid Breaking What Works
+1. **Never use local DB sessions in service functions:** Always use the `db` session injected from the orchestrator.
+2. **Always use `flag_modified`:** If you modify `session.context_data`, you must call `flag_modified(session, "context_data")` before `db.commit()` because SQLAlchemy does not automatically track mutations to JSON column contents.
+3. **Explicitly clear states:** Whenever a multi-step flow (like quotations) ends or is interrupted, ensure you clear the relevant state flags (e.g., `awaiting_quote`, `pending_product`, `awaiting_confirmation`).
+4. **Prevent Silent Bot:** When cancelling flows or handling errors, ensure `session.is_human_mode` is explicitly set to `False` unless a human agent actually took over.
+
+## Pending / Next Steps
+- Continue building out the Admin Panel and Dashboard integration.
+- Monitor AI Parsing token usage and refine the free-text product extraction prompt if necessary.

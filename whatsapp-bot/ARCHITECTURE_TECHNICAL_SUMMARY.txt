@@ -1,0 +1,332 @@
+================================================================
+  BLITZTECH ELECTRONICS WHATSAPP CHATBOT
+  COMPREHENSIVE BACKEND ARCHITECTURE SUMMARY
+  Generated: June 2026 | For: Debugging State & Routing Issues
+================================================================
+
+
+================================================================
+  1. CORE STACK
+================================================================
+
+  Language    : Python 3.x
+  Framework   : FastAPI (async ASGI web framework)
+  ASGI Server : Uvicorn (with --reload flag for development)
+  ORM         : SQLAlchemy (synchronous session, SQLite backend)
+  Database    : SQLite  -->  ./data/chatbot.db
+  HTTP Client : httpx (used internally by the Anthropic SDK)
+  Entry Point : app/main.py
+  Run Command : python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  Routers registered in main.py:
+    - webhook_router  (app/webhook.py)   --> handles /webhook GET & POST
+    - admin_router    (app/admin.py)     --> handles /admin-panel
+
+
+================================================================
+  2. LLM INTEGRATION
+================================================================
+
+  Provider    : Anthropic
+  SDK         : anthropic (official Python SDK, AsyncAnthropic client)
+  Model       : claude-sonnet-4-5-20250929   (set in app/config.py)
+  Client Init : anthropic.AsyncAnthropic(api_key=config.ANTHROPIC_API_KEY)
+  API Key Src : .env  -->  ANTHROPIC_API_KEY
+
+  Claude is called in TWO places:
+
+  [A] app/intent_engine.py  -->  process_message()
+      Purpose: Main AI brain. Classifies user intent AND generates
+               the reply text in a single call.
+      max_tokens: 200
+      Returns  : JSON with keys: action, secondary_action, message,
+                 product_name, category, quantity
+
+  [B] app/quotation_service.py  -->  build_quotation_from_list()
+      Purpose: Parses a customer's free-text product list into
+               structured JSON (e.g., "5 esp32, 2 arduino" --> array).
+      max_tokens: 500
+      Returns  : JSON array: [{"product": "esp32", "quantity": 5}, ...]
+      NOTE: This call has NO system prompt and NO conversation history.
+            It is a one-shot stateless parsing call, by design.
+
+  Context window sent to Claude [A] (intent_engine):
+    - system prompt (static, built fresh each call with live catalog)
+    - last 6 messages from history (3 exchanges)
+    - current user message
+
+
+================================================================
+  3. STATE MANAGEMENT (MEMORY / CONVERSATION HISTORY)
+================================================================
+
+  --- WHERE HISTORY IS STORED ---
+  History is persisted to SQLite, NOT an in-memory array.
+  Table     : user_sessions
+  Column    : context_data  (JSON column, stores a dict)
+  Key       : context_data["history"]  --> list of message dicts
+
+  Each history entry looks like:
+    {"role": "user",      "content": "how much is the esp32?"}
+    {"role": "assistant", "content": "The ESP32 is $12. Interested?"}
+
+  --- HOW IT IS MANAGED ---
+  File      : app/bot_handler.py
+  Functions : get_history(session)        --> reads history from DB
+              save_to_history(session, db, user_msg, bot_msg)
+                                          --> writes history to DB
+
+  Window    : History is capped at the LAST 10 messages (5 exchanges)
+              before writing. (bot_handler.py line 29)
+  Sent to AI: Last 6 messages of that history (3 exchanges).
+              (intent_engine.py line 170)
+
+  --- SESSION TIMEOUT ---
+  After 2 hours of inactivity, context_data is wiped and the user
+  gets a "session expired" message. (bot_handler.py lines 47-52)
+
+  --- QUOTATION FLOW STATE FLAGS ---
+  The context_data JSON also carries these flags during multi-turn flows:
+
+  context_data["awaiting_quote"]  : bool
+    --> True  = bot is waiting for the user to type their product list.
+               Next message from that user bypasses Claude entirely
+               and goes directly to build_quotation_from_list().
+               (bot_handler.py lines 82-85)
+    --> False = normal routing resumes.
+
+  context_data["cart"]            : list
+    --> Populated after a successful quotation build with the final
+        confirmed line items.
+
+  --- HUMAN MODE STATE ---
+  Column: user_sessions.is_human_mode  (Boolean, SQLite column)
+    --> True  = all incoming messages from this user are silently
+                dropped. Claude is never called.
+                (bot_handler.py lines 59-61)
+    --> False = normal bot mode.
+    Reset by: User sends "#bot" command.
+               (webhook.py lines 91-92)
+
+  --- CRITICAL DEBUG NOTE ---
+  The context_data column uses SQLAlchemy JSON type. SQLAlchemy does NOT
+  automatically detect mutations to a nested dict/list. If you modify
+  context_data without calling flag_modified(), the change will be silently
+  lost on commit. All state writes in this codebase use:
+    from sqlalchemy.orm.attributes import flag_modified
+    flag_modified(session, "context_data")
+  If you add new state flags and forget this call, your state will not persist.
+
+
+================================================================
+  4. FUNCTION / TOOL CALLING  (HOW BACKEND FEATURES ARE TRIGGERED)
+================================================================
+
+  NOTE: This system does NOT use native Anthropic tool_use / function
+  calling API. Instead, it uses a simpler "JSON action routing" pattern:
+
+  Claude returns a plain JSON object in its text response:
+    { "action": "request_quote", "message": "...", ... }
+
+  The bot_handler.py reads the "action" field and manually routes to the
+  correct service. This is equivalent to tool calling but implemented
+  manually in Python.
+
+  FULL ACTION ROUTING TABLE (bot_handler.py lines 102-173):
+
+  ┌──────────────────┬─────────────────────────────────────────────────────┐
+  │ action value     │ What the code does                                  │
+  ├──────────────────┼─────────────────────────────────────────────────────┤
+  │ greeting         │ Sends WhatsApp button message (3 quick-reply btns)  │
+  │ browse_categories│ Sends Claude's text reply directly                  │
+  │ browse_products  │ Sends Claude's text reply directly                  │
+  │ check_price      │ Sends Claude's text reply directly                  │
+  │ request_quote    │ Sends Claude's text reply, THEN calls               │
+  │                  │ request_quotation_start() to set awaiting_quote=True│
+  │ view_location    │ Calls get_location_message() [static text], sends   │
+  │                  │ it. Checks for secondary_action to send follow-up.  │
+  │ talk_to_human    │ Calls escalate_to_human() --> sets is_human_mode=T  │
+  │ out_of_scope     │ Sends decline message + 2 quick-reply buttons       │
+  │ gibberish        │ Sends clarification message + 2 buttons             │
+  │ (else/unknown)   │ Falls back to out_of_scope behaviour                │
+  └──────────────────┴─────────────────────────────────────────────────────┘
+
+  QUOTATION TRIGGER (2-step flow):
+  Step 1: User says "I want a quote"
+          Claude returns action = "request_quote"
+          bot_handler sends Claude's reply, then calls request_quotation_start()
+          which sets context_data["awaiting_quote"] = True in the DB
+
+  Step 2: User sends their product list (e.g. "5 esp32, 2 arduino")
+          webhook.py checks awaiting_quote BEFORE calling Claude
+          Calls build_quotation_from_list() directly
+          Claude is used ONLY as a parser (not for intent/routing)
+          System does a fuzzy DB lookup (Product.name.ilike("%esp32%"))
+          Builds and sends the plain-text quotation via WhatsApp
+
+  DATABASE LOOKUP MECHANISM:
+  - No explicit "tool call" to a search function.
+  - build_product_catalog(db) in intent_engine.py runs a full DB scan
+    (db.query(Product).all()) on every single Claude call for intent.
+  - The entire product catalog is injected into the system prompt as text.
+  - Claude "searches" by reading this text in context, not via code.
+  - For quotation stock checks: explicit SQLAlchemy queries per product.
+
+
+================================================================
+  5. ROUTING & WEBHOOKS
+================================================================
+
+  PUBLIC ENTRY POINT:
+    POST /webhook   (registered in app/webhook.py)
+    GET  /webhook   (Meta verification handshake only)
+
+  --- WEBHOOK VERIFICATION (GET) ---
+  Meta sends a GET request with 3 query params when you first configure
+  the webhook in the Meta Developer Dashboard:
+    hub.mode         = "subscribe"
+    hub.verify_token = (your token)
+    hub.challenge    = (random string Meta wants echoed back)
+
+  The handler checks hub.verify_token == config.WHATSAPP_VERIFY_TOKEN
+  (.env: WHATSAPP_VERIFY_TOKEN = "Callmerevenge21")
+  If match: returns hub.challenge as plain text with HTTP 200.
+  If no match: raises HTTP 403.
+
+  --- INCOMING MESSAGE PARSING (POST) ---
+  All incoming WhatsApp events arrive as a JSON payload from Meta.
+  The structure is deeply nested. Here is the exact parse path:
+
+  payload
+    └── entry[]
+          └── changes[]
+                └── value
+                      └── messages[]
+                            ├── from           --> phone number (string)
+                            ├── type           --> "text" or "interactive"
+                            ├── text.body      --> plain text message
+                            └── interactive
+                                  ├── type     --> "button_reply" or "list_reply"
+                                  ├── button_reply.id  --> button ID string
+                                  └── list_reply.id    --> list item ID string
+
+  --- MESSAGE FILTERING BEFORE LLM ---
+  The following checks happen in order BEFORE Claude is ever called:
+
+  1. Rate Limit Check (webhook.py)
+     10 messages per 60 seconds per phone number.
+     Uses an in-memory dict: rate_limit_cache = {phone: [timestamps]}
+     Exceeded: message is silently dropped (no reply sent to user).
+     WARNING: This cache is wiped on server restart. Restart the server
+              and a user's rate limit counter resets to zero.
+
+  2. Media / Non-Text Filter (process_webhook_message_job, webhook.py line 54)
+     If msg["type"] is NOT "text" or "interactive" (e.g., audio, image,
+     video, sticker, document), the message is intercepted.
+     Claude is NOT called. A static fallback text is sent to the user.
+
+  3. Button ID Mapping (bot_handler.py lines 71-78)
+     Interactive button replies have IDs, not readable text.
+     These are mapped to natural language before being sent to Claude:
+       "browse_cat"   --> "Show me your products"
+       "get_quote"    --> "I want to request a quotation"
+       "human_agent"  --> "I want to talk to a human agent"
+
+  4. Awaiting Quote Check (bot_handler.py lines 82-85)
+     If context_data["awaiting_quote"] == True, the message bypasses
+     Claude intent classification entirely and goes to quotation_service.py.
+
+  5. Human Mode Check (bot_handler.py lines 59-61)
+     If session.is_human_mode == True, the message is silently dropped.
+     Nothing is sent back to the user (the human agent handles it).
+
+  6. Input Validation (bot_handler.py lines 64-68)
+     Empty strings: return silently.
+     Messages > 1500 chars: return error message to user.
+
+  --- BACKGROUND TASK ARCHITECTURE ---
+  FastAPI BackgroundTasks is used to decouple message receipt from processing.
+  When a POST arrives at /webhook:
+    1. FastAPI immediately returns {"status": "success"} to Meta (HTTP 200).
+       This MUST happen within 5 seconds or Meta will retry the message.
+    2. The actual processing (DB, Claude API, WhatsApp reply) runs
+       asynchronously in the background after the response is returned.
+  This prevents webhook timeout errors under heavy LLM load.
+
+  --- WHATSAPP REPLY PATH ---
+  After processing, replies are sent back via the Meta Cloud API:
+    POST https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/messages
+    Auth: Bearer {WHATSAPP_ACCESS_TOKEN}   (from .env)
+  Implemented in: app/whatsapp_api.py
+  Functions used: send_text(phone, text), send_buttons(phone, body, buttons)
+
+
+================================================================
+  6. KNOWN DEBUGGING HOTSPOTS
+================================================================
+
+  [A] STATE NOT PERSISTING
+      Symptom : Bot forgets context mid-conversation.
+      Cause   : flag_modified(session, "context_data") not called before commit.
+      Fix     : Always call flag_modified after ANY nested dict mutation.
+
+  [B] BOT NOT RESPONDING AT ALL
+      Symptom : WhatsApp shows delivered but no reply.
+      Cause 1 : is_human_mode = True for that session. Send "#bot" to reset.
+      Cause 2 : awaiting_quote = True but user sent a non-product message.
+                quotation_service will try to parse it and likely fail silently.
+      Cause 3 : WHATSAPP_ACCESS_TOKEN expired (Meta tokens expire every 24h).
+                Check logs for "WhatsApp API Error 401".
+      Cause 4 : Tunnel is down. The background task runs but has no route out.
+
+  [C] WRONG INTENT CLASSIFICATION
+      Symptom : Bot says "out of scope" for a valid product question.
+      Cause   : Claude returned an action not in the routing table, so it falls
+                to the "else" block which maps to out_of_scope behaviour.
+      Debug   : Check bot.log for "Claude action:" log lines to see what
+                action Claude actually returned.
+
+  [D] HISTORY NOT BEING SENT TO CLAUDE
+      Symptom : Bot has no memory of previous messages in the same session.
+      Cause 1 : save_to_history() is not being called for that action branch.
+                Check: every action branch in bot_handler.py should call it.
+      Cause 2 : Session timeout (2h) wiped context_data.
+      Cause 3 : Multiple db.Session instances causing session merge conflicts.
+                handle_message() opens its own db and does db.merge(session),
+                but the session passed in came from webhook.py's db. This is
+                a known architectural smell -- the same record is managed by
+                two different SQLAlchemy sessions.
+
+  [E] RATE LIMIT FALSE POSITIVES AFTER RESTART
+      Symptom : User is not rate-limited but old timestamps are gone.
+      Cause   : rate_limit_cache is in-memory (dict in webhook.py). Restarting
+                the server wipes it. This is intentional but worth noting.
+
+  [F] QUOTATION PARSING FAILS
+      Symptom : Bot says "I couldn't understand your list."
+      Cause 1 : Claude returned text that didn't contain a JSON array.
+      Cause 2 : Product name fuzzy match (ilike "%name%") didn't find anything.
+                The customer's spelling must partially match a DB product name.
+      Debug   : Check logs for "Error building quotation from list:".
+
+================================================================
+  FILE MAP QUICK REFERENCE
+================================================================
+
+  app/main.py             App init, router registration, DB table creation
+  app/config.py           Loads all env vars from .env into Config class
+  app/database.py         SQLAlchemy engine + SessionLocal factory
+  app/models.py           ORM models: Category, Product, UserSession, Quotation
+  app/webhook.py          POST /webhook parser, rate limiter, background task
+  app/bot_handler.py      Main orchestrator: state, history, action router
+  app/intent_engine.py    Claude API call for intent classification + reply
+  app/quotation_service.py Two-step quotation flow (start + build from list)
+  app/whatsapp_api.py     HTTP calls to Meta Cloud API (send_text, send_buttons)
+  app/location_service.py Returns static company location/contact string
+  app/handoff_service.py  Sets is_human_mode=True, notifies agent, return_to_bot
+  app/logger.py           Configures Python logger, writes to logs/bot.log
+  data/chatbot.db         SQLite database file
+  logs/bot.log            Runtime log file (all errors and actions logged here)
+  .env                    Secret keys (NEVER commit to git)
+
+================================================================

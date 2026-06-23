@@ -1,0 +1,276 @@
+================================================================
+  WHATSAPP CHATBOT - HOW TO RUN
+  Last Updated: June 2026
+  Based on what actually worked during testing.
+================================================================
+
+You need TWO terminals open at the same time.
+Terminal 1 = Python server
+Terminal 2 = Tunnel (makes your server reachable from the internet)
+
+Both must stay open the entire time you are testing.
+
+================================================================
+  STEP 1: START THE PYTHON SERVER (Terminal 1)
+================================================================
+
+1. Open PowerShell
+2. Run these commands one at a time:
+
+   cd "C:\Users\DELL\Desktop\WhatsApp Chatbot\whatsapp-bot"
+   venv\Scripts\activate
+   python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+3. SUCCESS looks like this in the terminal:
+   
+   INFO:     Uvicorn running on http://0.0.0.0:8000
+   INFO:     Application startup complete.
+
+   Leave this terminal running. Do NOT close it.
+
+-- COMMON ERRORS --
+
+   "ModuleNotFoundError: No module named 'app'"
+   --> You are in the wrong folder.
+       Make sure you are in whatsapp-bot, NOT the parent folder.
+       Run: cd "C:\Users\DELL\Desktop\WhatsApp Chatbot\whatsapp-bot"
+
+   "[Errno 10048] only one usage of each socket"
+   --> Port 8000 is already in use by another process.
+       Close all other terminals and try again.
+
+================================================================
+  STEP 2: START THE TUNNEL (Terminal 2)
+================================================================
+
+Open a SECOND PowerShell window. Keep Terminal 1 still running.
+
+You have TWO tunnel options. Try Option A first.
+If Option A fails, use Option B.
+
+----------------------------------------------------------------
+  OPTION A: Cloudflare Tunnel (Preferred - already downloaded)
+----------------------------------------------------------------
+
+Run this command:
+
+   cd "C:\Users\DELL\Desktop\WhatsApp Chatbot\whatsapp-bot"
+   .\cloudflared.exe tunnel --url http://localhost:8000
+
+Wait about 10-15 seconds. Look for this in the terminal output:
+
+   +--------------------------------------------------------------------------------------------+
+   |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable): |
+   |  https://some-words-here.trycloudflare.com                                                 |
+   +--------------------------------------------------------------------------------------------+
+
+YOUR CALLBACK URL = that https://... address + /webhook at the end
+
+   EXAMPLE:
+   If the terminal shows:  https://bases-prefer-synthetic-said.trycloudflare.com
+   Your callback URL is:   https://bases-prefer-synthetic-said.trycloudflare.com/webhook
+
+Write down or copy this URL. Go to Step 3.
+
+----------------------------------------------------------------
+  OPTION B: SSH Tunnel via localhost.run (Backup method)
+----------------------------------------------------------------
+
+Use this if cloudflared.exe fails or gives an error.
+
+Run this command (copy it exactly, all one line):
+
+   ssh -R 80:127.0.0.1:8000 nokey@localhost.run -o StrictHostKeyChecking=no
+
+Wait about 10-15 seconds. Look for this line in the terminal output:
+
+   authenticated as anonymous user
+   xxxxxxxxxxxx.lhr.life tunneled with tls termination, https://xxxxxxxxxxxx.lhr.life
+
+YOUR CALLBACK URL = the https://xxxxxxxxxxxx.lhr.life address + /webhook at the end
+
+   EXAMPLE:
+   If the terminal shows:  https://8caa2499b3e8fa.lhr.life
+   Your callback URL is:   https://8caa2499b3e8fa.lhr.life/webhook
+
+   NOTE: The terminal also prints a large empty QR code block below.
+   IGNORE the QR code entirely. The URL is the text line ABOVE the QR block.
+   You do NOT need to scan anything.
+
+Write down or copy this URL. Go to Step 3.
+
+================================================================
+  STEP 3: CONFIGURE META DASHBOARD
+================================================================
+
+Do this EVERY TIME you restart the tunnel (the URL changes each time).
+
+1. Open your browser and go to:
+   https://developers.facebook.com
+
+2. Click on your App
+
+3. In the left sidebar click: WhatsApp --> Configuration
+
+4. Under the "Webhook" section, click the EDIT button
+
+5. In the "Callback URL" box, paste your URL from Step 2.
+   Make sure it ends with /webhook. Example:
+   https://bases-prefer-synthetic-said.trycloudflare.com/webhook
+
+6. In the "Verify Token" box, type exactly (case-sensitive):
+   Callmerevenge21
+
+7. Click "Verify and Save"
+
+8. SUCCESS = a green tick appears next to the webhook URL.
+
+9. Below the webhook URL, check that "messages" is ticked/subscribed.
+   If not, click "Manage" and enable it.
+
+-- IF VERIFICATION FAILS --
+
+   Check these things one by one:
+   a) Is Terminal 1 (the server) still running? Check it.
+   b) Is Terminal 2 (the tunnel) still running? Check it.
+   c) Did you add /webhook at the very end of the URL?
+   d) Is the verify token spelled exactly: Callmerevenge21
+   e) Wait 30 seconds and try clicking Verify again.
+
+================================================================
+  STEP 4: TEST THE BOT ON WHATSAPP
+================================================================
+
+Send these messages to your WhatsApp Business number:
+
+   "hello"
+        --> Bot replies with a greeting and 3 buttons
+
+   "show me your categories"
+        --> Lists product categories
+
+   "show me your products"
+        --> Lists all products with prices
+
+   "what is the price of esp32"
+        --> Shows price card for esp32
+
+   "i want to request a quotation"
+        --> Bot asks you to list what you want.
+            You then reply with your list, example:
+            "5 esp32, 2 arduino, 1 keypad"
+            Bot checks stock and generates a PDF quotation.
+
+   "where are you located"
+        --> Shows company address and business hours
+
+   "i want to talk to a human"
+        --> Notifies the human agent.
+            Bot stays active and keeps responding.
+
+   "#bot"
+        --> If the bot ever stops responding, send this.
+            It resets your session back to bot mode.
+
+================================================================
+  STEP 5: IF THE BOT STOPS RESPONDING
+================================================================
+
+Check these things:
+
+1. Look at Terminal 1. Is it still running?
+   If it crashed, restart it (go back to Step 1).
+
+2. Look at Terminal 2. Is the tunnel still running?
+   If it disconnected, restart it (go back to Step 2).
+   IMPORTANT: If you restart the tunnel, the URL changes!
+   You must go back to Step 3 and update Meta Dashboard again.
+
+3. Check the log file for errors:
+   Open this file in Notepad:
+   C:\Users\DELL\Desktop\WhatsApp Chatbot\whatsapp-bot\logs\bot.log
+
+   Common log messages and what they mean:
+   "Webhook verified successfully" --> Good, Meta connected
+   "Intent detected for XXX: greeting" --> Bot is working
+   "Bypassing bot (Human Mode active)" --> Session stuck
+        Fix: Send "#bot" in WhatsApp chat
+   "WhatsApp API Error 401" --> Access token expired
+        Fix: Get a new token from Meta (see Step 6 below)
+   "Awaiting quote list from XXX" --> Normal, waiting for product list
+
+4. Reset all stuck sessions by running this in a terminal:
+   (Make sure you are in the whatsapp-bot folder first)
+
+   python -c "import sqlite3; conn = sqlite3.connect('./data/chatbot.db'); conn.execute('UPDATE user_sessions SET is_human_mode = 0, context_data = NULL;'); conn.commit(); print('Done! All sessions reset.'); conn.close()"
+
+================================================================
+  STEP 6: WHEN THE WHATSAPP ACCESS TOKEN EXPIRES
+================================================================
+
+Meta's temporary tokens expire every 24 hours. When this happens,
+the bot will stop sending replies (but still receive messages).
+
+To get a new token:
+1. Go to: https://developers.facebook.com
+2. Click your App --> WhatsApp --> API Setup
+3. Copy the "Temporary access token" shown on the page
+4. Open this file: whatsapp-bot\.env
+5. Replace the value after WHATSAPP_ACCESS_TOKEN=
+   with the new token you just copied
+6. Save the file. The server reloads automatically.
+
+For a PERMANENT token (never expires):
+- Go to your Meta Business Suite
+- Settings --> System Users --> Create System User
+- Assign WhatsApp permissions
+- Generate a token with no expiry
+- Paste it in .env as WHATSAPP_ACCESS_TOKEN=
+
+================================================================
+  QUICK REFERENCE (Once you know what you are doing)
+================================================================
+
+Terminal 1:
+  cd "C:\Users\DELL\Desktop\WhatsApp Chatbot\whatsapp-bot"
+  venv\Scripts\activate
+  python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+Terminal 2 (Option A - Cloudflare):
+  cd "C:\Users\DELL\Desktop\WhatsApp Chatbot\whatsapp-bot"
+  .\cloudflared.exe tunnel --url http://localhost:8000
+  --> Copy the https://xxxx.trycloudflare.com URL from the output
+
+Terminal 2 (Option B - SSH backup):
+  ssh -R 80:127.0.0.1:8000 nokey@localhost.run -o StrictHostKeyChecking=no
+  --> Copy the https://xxxx.lhr.life URL from the output (ignore the QR code)
+
+Meta Dashboard:
+  Paste URL + /webhook --> Verify Token: Callmerevenge21 --> Verify and Save
+
+WhatsApp:
+  Send "hello" to test.
+
+================================================================
+  PROJECT FILE REFERENCE
+================================================================
+
+whatsapp-bot\
+  .env                    API keys and configuration (KEEP SECRET)
+  cloudflared.exe         Cloudflare tunnel tool
+  HOW_TO_RUN.txt          This file
+  logs\bot.log            Bot activity and error logs
+  data\chatbot.db         SQLite database (products, sessions, quotes)
+  quotations\             Generated PDF quotation files
+  app\
+    main.py               App entry point
+    webhook.py            Receives messages from Meta WhatsApp
+    bot_handler.py        Routes messages to the right service
+    intent_engine.py      Claude AI - understands customer messages
+    whatsapp_api.py       Sends replies back to WhatsApp
+    product_service.py    Reads products from database
+    quotation_service.py  Builds PDF quotations
+    handoff_service.py    Handles human agent notifications
+    config.py             Loads settings from .env
+
+================================================================

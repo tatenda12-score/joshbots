@@ -116,7 +116,10 @@ async def build_quotation_from_list(phone: str, message: str, user_session: User
                 return
 
         # --- Use Claude to parse product list from the customer's free-text message ---
-        client = anthropic.AsyncAnthropic(api_key=config.ANTHROPIC_API_KEY)
+        client = anthropic.AsyncAnthropic(
+            api_key=config.ANTHROPIC_API_KEY,
+            max_retries=5
+        )
         parse_prompt = f"""
         Your sole function is to extract product items and quantities into a structured JSON format. 
         You are a rigid data extraction utility, not a conversational assistant. 

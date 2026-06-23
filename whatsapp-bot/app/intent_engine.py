@@ -6,8 +6,11 @@ from .logger import setup_logger
 
 logger = setup_logger(__name__)
 
-# Initialize the Async Anthropic Client
-client = anthropic.AsyncAnthropic(api_key=config.ANTHROPIC_API_KEY)
+# Initialize the Async Anthropic Client with aggressive retries for 529 Overloaded errors
+client = anthropic.AsyncAnthropic(
+    api_key=config.ANTHROPIC_API_KEY,
+    max_retries=5
+)
 
 
 def build_product_catalog(db) -> str:

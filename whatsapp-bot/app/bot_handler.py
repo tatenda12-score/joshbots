@@ -1,6 +1,6 @@
 import datetime
 from .intent_engine import process_message
-from .whatsapp_api import send_text, send_buttons
+from .whatsapp_api import send_text, send_buttons, send_list
 from .quotation_service import build_quotation_from_list
 from .location_service import get_location_message
 from .handoff_service import escalate_to_human
@@ -66,7 +66,8 @@ async def handle_message(phone: str, message: str, session, db):
         button_mapping = {
             "browse_cat": "Show me your products",
             "get_quote": "I want a quotation",
-            "human_agent": "I want to talk to a human agent"
+            "human_agent": "I want to talk to a human agent",
+            "our_services": "Tell me about your services"
         }
         message_cleaned = message.strip()
         if message_cleaned in button_mapping:
@@ -147,18 +148,31 @@ async def handle_message(phone: str, message: str, session, db):
 
         # 7. Route actions
         if action == "greeting":
-            greeting_msg = "Hi! Welcome to *BlitzTech Electronics*. How can I help you?"
-            buttons = [
-                {"id": "browse_cat", "title": "Browse Products"},
-                {"id": "get_quote", "title": "Request Quote"},
-                {"id": "human_agent", "title": "Talk to Human"},
-            ]
-            await send_buttons(phone, greeting_msg, buttons)
+            greeting_msg = "Hi! Welcome to *BlitzTech Electronics*. What can I help you with today?"
+            sections = [{
+                "title": "Main Menu",
+                "rows": [
+                    {"id": "browse_cat",   "title": "Browse Products",  "description": "See what we have in stock"},
+                    {"id": "get_quote",    "title": "Request a Quote",   "description": "Get a price quotation"},
+                    {"id": "our_services", "title": "Our Services",      "description": "See what services we offer"},
+                    {"id": "human_agent",  "title": "Talk to Human",     "description": "Speak with our team directly"},
+                ]
+            }]
+            await send_list(phone, greeting_msg, "Open Menu", sections)
             save_to_history(session, db, message, greeting_msg)
 
         elif action in ("browse_categories", "browse_products", "check_price"):
             await send_text(phone, ai_message)
             save_to_history(session, db, message, ai_message)
+
+        elif action == "our_services":
+            # Placeholder — services content will be added by the user
+            services_msg = (
+                "*BlitzTech Electronics — Our Services:*\n\n"
+                "_Services coming soon. Please contact us at +263 786497967 for details._"
+            )
+            await send_text(phone, services_msg)
+            save_to_history(session, db, message, services_msg)
 
         elif action == "request_quote":
             if product_name and quantity:

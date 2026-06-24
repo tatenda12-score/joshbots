@@ -66,8 +66,8 @@ async def handle_message(phone: str, message: str, session, db):
         button_mapping = {
             "browse_cat": "Show me your products",
             "get_quote": "I want a quotation",
-            "human_agent": "I want to talk to a human agent",
-            "our_services": "Tell me about your services"
+            "our_services": "Tell me about your services",
+            "human_agent": "I want to talk to a human agent"
         }
         message_cleaned = message.strip()
         if message_cleaned in button_mapping:
@@ -82,12 +82,16 @@ async def handle_message(phone: str, message: str, session, db):
             db.add(session)
             db.commit()
             greeting_msg = "Fresh start! How can I help you today?"
-            buttons = [
-                {"id": "browse_cat", "title": "Browse Products"},
-                {"id": "get_quote", "title": "Request Quote"},
-                {"id": "human_agent", "title": "Talk to Human"},
-            ]
-            await send_buttons(phone, greeting_msg, buttons)
+            sections = [{
+                "title": "Main Menu",
+                "rows": [
+                    {"id": "browse_cat",   "title": "Browse Products",  "description": "See what we have in stock"},
+                    {"id": "get_quote",    "title": "Request a Quote",   "description": "Get a price quotation"},
+                    {"id": "our_services", "title": "Our Services",      "description": "See what services we offer"},
+                    {"id": "human_agent",  "title": "Talk to Human",     "description": "Speak with our team directly"},
+                ]
+            }]
+            await send_list(phone, greeting_msg, "Open Menu", sections)
             logger.info(f"Session reset by {phone}")
             return
 
@@ -148,7 +152,7 @@ async def handle_message(phone: str, message: str, session, db):
 
         # 7. Route actions
         if action == "greeting":
-            greeting_msg = "Hi! Welcome to *BlitzTech Electronics*. What can I help you with today?"
+            greeting_msg = "Hi! Welcome to *BlitzTech Electronics* 👋"
             sections = [{
                 "title": "Main Menu",
                 "rows": [
@@ -161,10 +165,6 @@ async def handle_message(phone: str, message: str, session, db):
             await send_list(phone, greeting_msg, "Open Menu", sections)
             save_to_history(session, db, message, greeting_msg)
 
-        elif action in ("browse_categories", "browse_products", "check_price"):
-            await send_text(phone, ai_message)
-            save_to_history(session, db, message, ai_message)
-
         elif action == "our_services":
             services_msg = (
                 "🏢 *BlitzTech Electronics — Our Services*\n"
@@ -173,21 +173,21 @@ async def handle_message(phone: str, message: str, session, db):
                 "Supply of microcontrollers, sensors, modules & dev boards\n\n"
                 "💻 *Software Development*\n"
                 "Custom software, embedded systems & IoT solutions\n\n"
-                "☀️ *Power & Solar Systems*\n"
-                "Solar installations, inverters & power backup solutions\n\n"
-                "🚁 *Drone Technology*\n"
-                "Drone assembly, repair & custom drone builds\n\n"
-                "⌚ *Wearable Technology*\n"
-                "Design & development of smart wearable devices\n\n"
-                "🔬 *Research & Development*\n"
-                "Prototype development & electronics R&D support\n\n"
                 "🎓 *School Projects*\n"
                 "Guided electronics projects for students at all levels\n\n"
                 "━━━━━━━━━━━━━━━━━━━━\n"
-                "📞 Interested? Talk to our team: *+263 786497967*"
+                "Would you like to speak to an engineer about any of these?"
             )
-            await send_text(phone, services_msg)
+            buttons = [
+                {"id": "human_agent", "title": "Yes, talk to human"},
+                {"id": "browse_cat", "title": "No, just browsing"}
+            ]
+            await send_buttons(phone, services_msg, buttons)
             save_to_history(session, db, message, services_msg)
+
+        elif action in ("browse_categories", "browse_products", "check_price"):
+            await send_text(phone, ai_message)
+            save_to_history(session, db, message, ai_message)
 
         elif action == "request_quote":
             if product_name and quantity:

@@ -76,6 +76,25 @@ async def handle_message(phone: str, message: str, session, db):
         if message_cleaned in button_mapping:
             message = button_mapping[message_cleaned]
 
+        # Universal reset command — clears all stuck states
+        reset_triggers = {"reset", "start over", "restart", "clear", "menu", "/start", "/reset"}
+        if message_cleaned.lower() in reset_triggers:
+            session.context_data = {}
+            session.is_human_mode = False
+            from sqlalchemy.orm.attributes import flag_modified
+            flag_modified(session, "context_data")
+            db.add(session)
+            db.commit()
+            greeting_msg = "Session cleared! How can I help you? I can check prices, stock, or build a quotation."
+            buttons = [
+                {"id": "browse_cat", "title": "Browse Products"},
+                {"id": "get_quote", "title": "Request Quote"},
+                {"id": "human_agent", "title": "Talk to Human"},
+            ]
+            await send_buttons(phone, greeting_msg, buttons)
+            logger.info(f"Session reset by {phone}")
+            return
+
         # 3. Check if awaiting quotation product list
         context = session.context_data or {}
         if context.get("awaiting_quote"):

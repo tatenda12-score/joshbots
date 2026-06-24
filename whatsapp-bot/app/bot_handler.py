@@ -166,10 +166,25 @@ async def handle_message(phone: str, message: str, session, db):
             save_to_history(session, db, message, ai_message)
 
         elif action == "our_services":
-            # Placeholder — services content will be added by the user
             services_msg = (
-                "*BlitzTech Electronics — Our Services:*\n\n"
-                "_Services coming soon. Please contact us at +263 786497967 for details._"
+                "🏢 *BlitzTech Electronics — Our Services*\n"
+                "━━━━━━━━━━━━━━━━━━━━\n\n"
+                "⚡ *Electronic Components*\n"
+                "Supply of microcontrollers, sensors, modules & dev boards\n\n"
+                "💻 *Software Development*\n"
+                "Custom software, embedded systems & IoT solutions\n\n"
+                "☀️ *Power & Solar Systems*\n"
+                "Solar installations, inverters & power backup solutions\n\n"
+                "🚁 *Drone Technology*\n"
+                "Drone assembly, repair & custom drone builds\n\n"
+                "⌚ *Wearable Technology*\n"
+                "Design & development of smart wearable devices\n\n"
+                "🔬 *Research & Development*\n"
+                "Prototype development & electronics R&D support\n\n"
+                "🎓 *School Projects*\n"
+                "Guided electronics projects for students at all levels\n\n"
+                "━━━━━━━━━━━━━━━━━━━━\n"
+                "📞 Interested? Talk to our team: *+263 786497967*"
             )
             await send_text(phone, services_msg)
             save_to_history(session, db, message, services_msg)

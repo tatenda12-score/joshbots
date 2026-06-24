@@ -176,10 +176,17 @@ async def handle_message(phone: str, message: str, session, db):
             save_to_history(session, db, message, ai_message)
 
         elif action == "request_quote":
-            # Claude explains the process, then bot triggers the quote flow
-            await send_text(phone, ai_message)
-            save_to_history(session, db, message, ai_message)
-            await request_quotation_start(phone, session, db)
+            quantity = result.get("quantity")
+            if product_name and quantity:
+                # Claude already knows WHAT and HOW MANY — build quote directly, no double-prompt
+                logger.info(f"Direct quote: {quantity}x {product_name} for {phone}")
+                await build_quotation_from_list(phone, f"{quantity} {product_name}", session, db, history)
+                save_to_history(session, db, message, ai_message)
+            else:
+                # Product or quantity unknown — start the formal quote flow
+                await send_text(phone, ai_message)
+                save_to_history(session, db, message, ai_message)
+                await request_quotation_start(phone, session, db)
 
         elif action == "view_location":
             location_msg = get_location_message()

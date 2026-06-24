@@ -102,6 +102,25 @@ async def build_quotation_from_list(phone: str, message: str, user_session: User
         else:
             # No pending product. Guard: require at least one digit before parsing
             if not has_digit:
+                # Check if this looks like a question/confusion (not a product name)
+                question_keywords = {
+                    "where", "what", "when", "how", "why", "who",
+                    "quotation", "quote", "did you", "is it", "the quote",
+                    "my order", "i don't", "i dont", "confused", "help"
+                }
+                msg_words = set(msg_lower.split())
+                is_question = any(kw in msg_lower for kw in question_keywords)
+
+                if is_question:
+                    # User is asking a question, not listing products — guide them
+                    context["awaiting_quote"] = False
+                    user_session.context_data = context
+                    flag_modified(user_session, "context_data")
+                    db.add(user_session)
+                    db.commit()
+                    await send_text(phone, "No problem! To get a quotation, just tell me what you need and how many — e.g: _5 Arduino Uno, 2 ESP32_")
+                    return
+
                 logger.info(
                     f"No quantity detected in message '{resolved_message}' from {phone}. "
                     f"Saving as pending_product and prompting for quantity."
@@ -112,7 +131,7 @@ async def build_quotation_from_list(phone: str, message: str, user_session: User
                 flag_modified(user_session, "context_data")
                 db.add(user_session)
                 db.commit()
-                await send_text(phone, "How many units of that would you like?")
+                await send_text(phone, f"How many units of *{resolved_message.strip()}* would you like?")
                 return
 
         # --- Use Claude to parse product list from the customer's free-text message ---

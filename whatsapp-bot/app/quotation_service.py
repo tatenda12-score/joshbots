@@ -64,74 +64,50 @@ async def build_quotation_from_list(phone: str, message: str, user_session: User
         context = user_session.context_data or {}
         pending_product = context.get("pending_product")
 
-        # 1. Guard against conversational questions replacing pending state
-        # If user explicitly wants to cancel/correct
-        cancel_keywords = {
-            "cancel", "no", "wrong", "edit", "change", 
-            "wait", "stop", "restart", "redo", "start over", 
+        # 1. Guard: check for explicit cancel using WORD BOUNDARY matching
+        # (substring match was buggy — 'no' matched inside 'arduino', 'wrong' inside 'wrongful', etc.)
+        cancel_keywords = [
+            "cancel", "wrong", "edit", "change",
+            "stop", "restart", "redo", "start over",
             "clear", "reset", "mistake"
-        }
-        if any(kw in msg_lower for kw in cancel_keywords):
-            if "pending_product" in context:
-                context.pop("pending_product", None)
+        ]
+        is_cancel = any(re.search(r'\b' + re.escape(kw) + r'\b', msg_lower) for kw in cancel_keywords)
+        if is_cancel:
+            context.pop("pending_product", None)
             context["awaiting_quote"] = False
             user_session.context_data = context
             flag_modified(user_session, "context_data")
             db.add(user_session)
             db.commit()
-            await send_text(phone, "No problem, I've cleared your pending item. Let's start over — what do you need?")
+            await send_text(phone, "Cleared! Just tell me what products and quantities you need — e.g: _5 Arduino Uno, 2 ESP32_")
             return
 
         has_digit = any(char.isdigit() for char in resolved_message)
 
         if pending_product:
             if has_digit:
-                # User replied with a quantity after we asked — combine them
+                # User replied with a quantity — combine quantity + saved product name
                 resolved_message = f"{resolved_message} {pending_product}"
-                logger.info(
-                    f"Resolved bare number '{message}' + pending_product '{pending_product}' "
-                    f"→ '{resolved_message}' for {phone}."
-                )
-                # We do NOT pop pending_product here yet. We wait for AI to successfully parse.
-            else:
-                # User asked a question or sent text without digits.
-                # Leave pending_product intact so bot remembers what they are talking about.
-                logger.info(f"Conversational question detected while pending '{pending_product}'. Asking for quantity again.")
-                await send_text(phone, f"Regarding the '{pending_product}', how many units would you like? (Or reply 'cancel' to clear it).")
-                return
-        else:
-            # No pending product. Guard: require at least one digit before parsing
-            if not has_digit:
-                # Check if this looks like a question/confusion (not a product name)
-                question_keywords = {
-                    "where", "what", "when", "how", "why", "who",
-                    "quotation", "quote", "did you", "is it", "the quote",
-                    "my order", "i don't", "i dont", "confused", "help"
-                }
-                msg_words = set(msg_lower.split())
-                is_question = any(kw in msg_lower for kw in question_keywords)
-
-                if is_question:
-                    # User is asking a question, not listing products — guide them
-                    context["awaiting_quote"] = False
-                    user_session.context_data = context
-                    flag_modified(user_session, "context_data")
-                    db.add(user_session)
-                    db.commit()
-                    await send_text(phone, "No problem! To get a quotation, just tell me what you need and how many — e.g: _5 Arduino Uno, 2 ESP32_")
-                    return
-
-                logger.info(
-                    f"No quantity detected in message '{resolved_message}' from {phone}. "
-                    f"Saving as pending_product and prompting for quantity."
-                )
-                context["awaiting_quote"] = True
-                context["pending_product"] = resolved_message.strip()
+                context.pop("pending_product", None)
                 user_session.context_data = context
                 flag_modified(user_session, "context_data")
                 db.add(user_session)
                 db.commit()
-                await send_text(phone, f"How many units of *{resolved_message.strip()}* would you like?")
+                logger.info(f"Resolved: '{resolved_message}' for {phone}")
+            else:
+                # User sent text with no digit while we're waiting for a quantity
+                await send_text(phone, f"How many units of *{pending_product}* would you like?")
+                return
+        else:
+            if not has_digit:
+                # No product saved, no quantity in message — guide the user
+                await send_text(phone, "Please tell me what you need and how many — e.g: _5 Arduino Uno_ or _2 ESP32_")
+                return
+            # Has digit but no product name — can't build quote without knowing the product
+            # Check if the message is just a bare number with no product name
+            stripped = re.sub(r'[\d\s,]+', '', resolved_message).strip()
+            if not stripped:
+                await send_text(phone, "Which product would you like? Please include the product name — e.g: _5 Arduino Uno_")
                 return
 
         # --- Use Claude to parse product list from the customer's free-text message ---

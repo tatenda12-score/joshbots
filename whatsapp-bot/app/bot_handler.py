@@ -81,7 +81,6 @@ async def handle_message(phone: str, message: str, session, db):
         if message_cleaned.lower() in reset_triggers:
             session.context_data = {}
             session.is_human_mode = False
-            from sqlalchemy.orm.attributes import flag_modified
             flag_modified(session, "context_data")
             db.add(session)
             db.commit()
